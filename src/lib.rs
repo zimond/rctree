@@ -75,11 +75,13 @@ type WeakLink<T> = Weak<RefCell<NodeData<T>>>;
 /// and `std::cell::RefCell` for interior mutability.
 ///
 /// **Note:** Cloning a `Node` only increments a reference count. It does not copy the data.
+#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 pub struct Node<T>(Link<T>);
 
 /// A weak reference to a node holding a value of type `T`.
 pub struct WeakNode<T>(WeakLink<T>);
 
+#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 struct NodeData<T> {
     root: Option<WeakLink<T>>,
     parent: Option<WeakLink<T>>,
